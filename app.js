@@ -6,12 +6,25 @@ const app = express();
 //Middleware - é chamado assim porque fica entre o Request e o Response.
 app.use(express.json());
 
+//Criando o nosso próprio Middleware
+app.use((req, res, next) => {
+  console.log('Hello from the middleware');
+  next();
+});
+
+//Request Time
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 //Essa função será executada apenas uma vez.
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
 const getAllTours = (req, res) => {
+  console.log(req.requestTime);
   //Usando método GET
   res.status(200).json({
     status: 'success',
