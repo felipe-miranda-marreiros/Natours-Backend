@@ -48,6 +48,28 @@ app.post('/api/v1/tours', (req, res) => {
   );
 });
 
+//Utilizando variáveis no URL - URL Parameters
+app.get('/api/v1/tours/:id', (req, res) => {
+  console.log(req.params);
+  const id = req.params.id * 1;
+  const tour = tours.find((el) => el.id === id);
+
+  if (id > tours.length || !tour) {
+    return res.status(404).json({
+      status: 'fail',
+      messsage: 'Invalid ID',
+    });
+  }
+
+  //Usando método GET
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+});
+
 //Criando servidor usando porta 3000.
 const port = 3000;
 app.listen(port, () => {
