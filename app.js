@@ -11,8 +11,7 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-//Essa função ocorrerá no Event Loop.
-app.get('/api/v1/tours', (req, res) => {
+const getAllTours = (req, res) => {
   //Usando método GET
   res.status(200).json({
     status: 'success',
@@ -21,9 +20,30 @@ app.get('/api/v1/tours', (req, res) => {
       tours,
     },
   });
-});
+};
 
-app.post('/api/v1/tours', (req, res) => {
+const getTour = (req, res) => {
+  console.log(req.params);
+  const id = req.params.id * 1;
+  const tour = tours.find((el) => el.id === id);
+
+  if (id > tours.length || !tour) {
+    return res.status(404).json({
+      status: 'fail',
+      messsage: 'Invalid ID',
+    });
+  }
+
+  //Usando método GET
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+};
+
+const createTour = (req, res) => {
   //Usando método POST
 
   //Req.body está disponível agora porque solicitamos no app.use(express.json());
@@ -46,32 +66,9 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
-//Utilizando variáveis no URL - URL Parameters
-app.get('/api/v1/tours/:id', (req, res) => {
-  console.log(req.params);
-  const id = req.params.id * 1;
-  const tour = tours.find((el) => el.id === id);
-
-  if (id > tours.length || !tour) {
-    return res.status(404).json({
-      status: 'fail',
-      messsage: 'Invalid ID',
-    });
-  }
-
-  //Usando método GET
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour,
-    },
-  });
-});
-
-//método PATCH
-app.patch('/api/v1/tours/:id', (req, res) => {
+const updateTour = (req, res) => {
   //Verificando erros
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
@@ -87,9 +84,9 @@ app.patch('/api/v1/tours/:id', (req, res) => {
       tour: '<Updated tour here...>',
     },
   });
-});
+};
 
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteTour = (req, res) => {
   //Verificando erros
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
@@ -103,7 +100,14 @@ app.delete('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     data: null,
   });
-});
+};
+
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 //Criando servidor usando porta 3000.
 const port = 3000;
