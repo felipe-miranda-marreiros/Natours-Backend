@@ -1,7 +1,11 @@
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
+
+//1)Middlers
+app.use(morgan('dev'));
 
 //Middleware - é chamado assim porque fica entre o Request e o Response.
 app.use(express.json());
@@ -17,6 +21,8 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+///////////////////Routers
 
 //Essa função será executada apenas uma vez.
 const tours = JSON.parse(
@@ -114,6 +120,8 @@ const deleteTour = (req, res) => {
     data: null,
   });
 };
+
+///////////////SERVER START
 
 app.route('/api/v1/tours').get(getAllTours).post(createTour);
 app
