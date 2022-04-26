@@ -5,10 +5,21 @@ const tours = JSON.parse(
 );
 
 exports.checkID = (req, res, next, value) => {
-  if (req.params.id * 1 > tours.length) {
+  if (req.params.id * 1 >= tours.length) {
     return res.status(404).json({
       status: 'fail',
       messsage: 'Invalid ID',
+    });
+  }
+  next();
+};
+
+exports.checkBODY = (req, res, next) => {
+  //Aqui podemos ter apenas 3 parametros nesta função. O quarto, value, quebra essa função e o middleware é ignorado.
+  if (!req.body.name || !req.body.price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Missing name or price',
     });
   }
   next();
@@ -49,7 +60,7 @@ exports.createTour = (req, res) => {
 
   //Usando writeFile() para realmente adicionar no banco de dados e ter um response.
   fs.writeFile(
-    `${__dirname}/dev-data/data/tours-simple.json`,
+    `${__dirname}/../dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
     (err) => {
       res.status(201).json({
