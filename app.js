@@ -9,6 +9,8 @@ const app = express();
 //Middlers
 app.use(morgan('dev'));
 app.use(express.json());
+//Podemos enviar arquivos estaticos usando express.static(<caminho>)
+app.use(express.static(`${__dirname}/public/`));
 
 //Routers
 app.use('/api/v1/tours', tourRouter);
