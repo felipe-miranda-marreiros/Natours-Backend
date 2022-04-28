@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const app = require('./app');
 
 dotenv.config({ path: './config.env' });
-
-const app = require('./app');
 
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
@@ -13,12 +12,12 @@ const DB = process.env.DATABASE.replace(
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log('db connection successful!');
-  });
+  })
+  .catch((err) => console.log(err));
 
 const tourSchema = new mongoose.Schema({
   name: {
@@ -37,6 +36,19 @@ const tourSchema = new mongoose.Schema({
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
+
+const testTour = new Tour({
+  name: 'The Park Camper',
+  rating: 4.7,
+  price: 497,
+});
+
+testTour
+  .save()
+  .then((doc) => {
+    console.log(doc);
+  })
+  .catch((err) => console.log(err));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
