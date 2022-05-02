@@ -106,3 +106,4 @@ dist
 # Ignore .env files
 .env
 config.env
+dev-data/data/tours-simple.json
