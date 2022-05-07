@@ -84,7 +84,7 @@ tourSchema.pre('save', function (next) {
 });
 // eslint-disable-next-line prefer-arrow-callback
 tourSchema.post('save', function (doc, next) {
-  console.log(doc);
+  // console.log(doc);
   next();
 });
 
@@ -101,6 +101,16 @@ tourSchema.pre(/^find/, function (next) {
 tourSchema.post(/^find/, function (docs, next) {
   console.log(`query took ${Date.now() - this.start} milliseconds`);
   // console.log(docs);
+  next();
+});
+
+//Aggregation middleware
+
+// eslint-disable-next-line prefer-arrow-callback
+tourSchema.pre('aggregate', function (next) {
+  //This - irá apontar para o Aggregation, que está no Controller (getTourStats) e não para todo o documento que vem do Schema.
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  console.log(this.pipeline());
   next();
 });
 
