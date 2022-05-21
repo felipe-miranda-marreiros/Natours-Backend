@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // 1) MIDDLEWARES
 //Serving static files
+//Servira para enviar arquivos da pasta PUBLIC (CSS, Imagens, Etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Set security HTTP headers
@@ -71,7 +72,10 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 app.get('/', (req, res) => {
-  res.status(200).render('base');
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Jonas'
+  });
 });
 
 app.use('/api/v1/tours', tourRouter);
