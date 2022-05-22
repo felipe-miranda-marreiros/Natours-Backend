@@ -72,7 +72,11 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
+
+// Template Engine
 app.use('/', viewRouter);
+
+// API
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
