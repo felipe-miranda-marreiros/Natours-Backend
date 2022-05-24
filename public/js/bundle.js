@@ -6687,7 +6687,8 @@ var displayMap = function displayMap(locations) {
       anchor: 'bottom'
     }).setLngLat(loc.coordinates).addTo(map);
     new mapboxgl.Popup({
-      offset: 30
+      offset: 30,
+      focusAfterOpen: false
     }).setLngLat(loc.coordinates).setHTML("<p>Day ".concat(loc.day, ": ").concat(loc.description, "<p>")).addTo(map);
     bounds.extend(loc.coordinates);
   });
