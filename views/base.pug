@@ -4,14 +4,17 @@ html
     head
     block head 
         meta(charset='UTF-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title Natours | #{title}
-        link(rel='stylesheet', href='/css/style.css')
-        link(rel='shortcut icon', type='image/png', href='/img/favicon.png')
+        link(rel='stylesheet' href='/css/style.css')
+        link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
         link(
             rel='stylesheet',
             href='https://fonts.googleapis.com/css?family=Lato:300,300i,700'
         )
+        script(src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js')
+        link(href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet')
+
 
     body
         // HEADER
@@ -27,5 +30,6 @@ html
         //- script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js')
         //- script(src='/js/mapbox.js')
         //- script(src='/js/login.js')
+        script(src='https://js.stripe.com/v3/')
         script(src='/js/bundle.js')
-       
+
