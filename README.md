@@ -1,3 +1,5 @@
+![logo-green](https://user-images.githubusercontent.com/91689754/170886555-7afd9045-fc93-4052-ab11-553d1c42913d.png)
+
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)![Pug](https://img.shields.io/badge/Pug-FFF?style=for-the-badge&logo=pug&logoColor=A86454)![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 
 # Natours - Aplicação com RESTful API e Server-Side Rendering
@@ -20,6 +22,9 @@
 
 - Permitir ao usuário fazer compra do produto.
 
+![screencapture-fmm-natours-herokuapp-2022-05-29-15_43_30](https://user-images.githubusercontent.com/91689754/170886603-33708517-3f90-4871-9cda-62a2c57833cd.png)
+
+
 **Da parte do usuário teremos:**
 
 - Permitir fazer Login in e Log out.
@@ -27,6 +32,9 @@
 - Redefinir foto.
 - Redefinir senha.
 - Visualizar produtos comprados.
+
+![screencapture-fmm-natours-herokuapp-me-2022-05-29-15_44_45](https://user-images.githubusercontent.com/91689754/170886640-fd49f78d-c0be-4383-8b9e-465518b4c7df.png)
+
 
 ## **Arquitetura MVC**
 
@@ -104,7 +112,7 @@ No dashboard do Stripe, teremos:
 ![image](https://user-images.githubusercontent.com/91689754/170886137-a0af6d24-91f3-4890-99e9-08fca0595480.png)
 
 
-## **Mailtrap e SendGrid -** Envio de Boas Vindas/ Redefinir Senha por E-mail
+## **Mailtrap e SendGrid -** Envio de boas-vindas/ Redefinir senha por e-mail
 
 Em modo de desenvolvimento (em outras palavras, quando ainda não estamos com a build final), quando usuário faz cadastro no Natours, um e-mail é enviado tanto para o Maitrap com um Template HTML de boas-vindas quanto para o SendGrid que irá redirecionar para o usuário final.
 
