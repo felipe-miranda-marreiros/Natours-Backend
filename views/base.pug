@@ -16,7 +16,7 @@ html
         link(href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet')
 
 
-    body
+    body(data-alert=`${alert ? alert : ''}`)
         // HEADER
         include _header
 
