@@ -77,16 +77,20 @@ Funciona dessa forma:
 
 ## **Mapbox**
 
-Para o usuário visualizar a localização do Tour, foi utilizado a biblioteca Mapbox. O modo como essa parte da aplicação funciona é dessa maneira:
+Para o usuário visualizar a localização de cada Tour, foi utilizado a biblioteca Mapbox. O modo como essa parte da aplicação funciona é dessa maneira:
 
-- Cada documento no MongoDB possui um campo chamado de startLocation.
-- Nesse campo temos uma propriedade chamada de coordinates - uma Array que contem latitude e longitude.
+![image](https://user-images.githubusercontent.com/91689754/170886335-c8b0a177-d589-4439-ad29-cff6075accf8.png)
+
+- Cada documento no MongoDB possui um campo chamado de **startLocation**.
+- Nesse campo temos uma propriedade chamada de **coordinates** - uma Array que contem latitude e longitude.
 - Passamos essas informações para a biblioteca que o Mapbox fornece.
 - O resto é apenas manipulação de DOM.
 
 ## **Stripe**
 
 Último recurso disponível na página de cada Tour. Usuário poderá fazer Booking comprando o produto usando Stripe.
+
+![image](https://user-images.githubusercontent.com/91689754/170886187-4eb56bd2-4dee-47a4-8339-b6216b010556.png)
 
 Funciona dessa forma:
 
@@ -95,11 +99,18 @@ Funciona dessa forma:
 - A única coisa que podemos fazer é personalizar esse Checkout Session com cores e logo do site. Essa parte é feita no Frontend.
 - Quando a compra for concluída, o usuário será redirecionado para pagina de Bookings onde recebera um aviso, dizendo que a requisição foi concluída com sucesso.
 
+No dashboard do Stripe, teremos:
+
+![image](https://user-images.githubusercontent.com/91689754/170886137-a0af6d24-91f3-4890-99e9-08fca0595480.png)
+
+
 ## **Mailtrap e SendGrid -** Envio de Boas Vindas/ Redefinir Senha por E-mail
 
 Em modo de desenvolvimento (em outras palavras, quando ainda não estamos com a build final), quando usuário faz cadastro no Natours, um e-mail é enviado tanto para o Maitrap com um Template HTML de boas-vindas quanto para o SendGrid que irá redirecionar para o usuário final.
 
-## **Login e Autentificação**
+![image](https://user-images.githubusercontent.com/91689754/170885877-f892d2e6-7eb7-473a-83db-fed5552c59e2.png)
+
+## **Login e Autenticação**
 
 Em ordem de verificar a autenticidade do usuário, foi utilizado o seguinte método:
 
@@ -120,6 +131,20 @@ Além disso, foi levado em consideração algumas regras:
 - Usuários são poderão acessar certos conteúdos do site se estiverem logados utilizando Bearer Authentication.
 - IPs podem fazer no máximo 100 requisições.
 - Foi implementado validações com Mongoose.
+
+Um exemplo do documento usando método GET:
+
+```js
+  {
+    "_id": "5c8a1d5b0190b214360dc057",
+    "name": "Jonas Schmedtmann",
+    "email": "admin@natours.io",
+    "role": "admin",
+    "active": true,
+    "photo": "user-1.jpg",
+    "password": "$2a$12$Q0grHjH9PXc6SxivC8m12.2mZJ9BbKcgFpwSG4Y1ZEII8HJVzWeyS"
+  },
+```
 
 ## **Mongoose e Modelo de Documento**
 
