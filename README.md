@@ -57,6 +57,8 @@ No final teremos:
 
 ## **API**
 
+Link: [Natours API](https://documenter.getpostman.com/view/20668120/Uz5CLddS)
+
 Utilizando algumas features de RESTful API. Isso quer dizer que a maioria da arquitetura é feita por requisições e respostas via HTTP. Levando em consideração que:
 
 - Foi utilizado **Uniform Interface** – As requisições são feitas via método HTTP. Dessa forma, cada requisição possui o mesmo padrão. Não dizemos, por exemplo, o que uma rota faz por seu endpoint. Porém, quebramos essa regra em alguns casos.
