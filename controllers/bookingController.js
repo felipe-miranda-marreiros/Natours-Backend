@@ -1,14 +1,13 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-const Tour = require('./../models/tourModel');
-const User = require('./../models/userModel');
-const Booking = require('./../models/bookingModel');
-const catchAsync = require('./../utils/catchAsync');
+const Tour = require('../models/tourModel');
+const User = require('../models/userModel');
+const Booking = require('../models/bookingModel');
 const factory = require('./handlerFactory');
+// const AppError = require('../utils/appError');
+const catchAsync = require('../utils/catchAsync');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently booked tour
-
   const tour = await Tour.findById(req.params.tourId);
 
   // 2) Create checkout session
@@ -17,7 +16,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     // success_url: `${req.protocol}://${req.get('host')}/?tour=${
     //   req.params.tourId
     // }&user=${req.user.id}&price=${tour.price}`,
-    success_url: `${req.protocol}://${req.get('host')}/my-tours`,
+    success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=booking`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
@@ -38,7 +37,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 3) Create session as response
   res.status(200).json({
     status: 'success',
-    session
+    session: session
   });
 });
 
@@ -50,6 +49,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 //   await Booking.create({ tour, user, price });
 
 //   res.redirect(req.originalUrl.split('?')[0]);
+//   // while accessing the homeroute for 2nd time there will be no tour, user, price so it will move to the next middleware
 // });
 
 const createBookingCheckout = async session => {
@@ -73,14 +73,15 @@ exports.webhookCheckout = (req, res, next) => {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
-  if (event.type === 'checkout.session.completed')
+  if (event.type === 'checkout.session.completed') {
     createBookingCheckout(event.data.object);
+  }
 
   res.status(200).json({ received: true });
 };
 
 exports.createBooking = factory.createOne(Booking);
-exports.getBooking = factory.getOne(Booking);
 exports.getAllBookings = factory.getAll(Booking);
+exports.getBooking = factory.getOne(Booking);
 exports.updateBooking = factory.updateOne(Booking);
 exports.deleteBooking = factory.deleteOne(Booking);
